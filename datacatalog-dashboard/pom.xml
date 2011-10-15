@@ -24,6 +24,41 @@
             <artifactId>jersey-json</artifactId>
             <version>1.9.1</version>
         </dependency>
+        <dependency>
+            <groupId>xmccat</groupId>
+            <artifactId>xmccat-client</artifactId>
+            <version>1.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>xmccat</groupId>
+            <artifactId>xmccat-client-xbeans-packaged</artifactId>
+            <version>1.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>xmccat</groupId>
+            <artifactId>xmccat-types-metadata</artifactId>
+            <version>1.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>lead</groupId>
+            <artifactId>lead-xmccat-domain-metadata</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.14</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -38,4 +73,17 @@
             </plugin>
         </plugins>
     </build>
+    <repositories>
+        <repository>
+            <id>internal</id>
+            <name>Archiva Managed Internal Repository</name>
+            <url>http://bitternut.cs.indiana.edu:10090/archiva/repository/internal/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>

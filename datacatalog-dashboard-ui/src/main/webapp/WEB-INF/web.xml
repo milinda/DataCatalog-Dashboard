@@ -13,8 +13,17 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>US States</servlet-name>
+        <servlet-class>edu.indiana.d2i.datacatalog.dashboard.api.USStates</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Jersey REST Service</servlet-name>
-        <url-pattern>/hello/*</url-pattern>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>US States</servlet-name>
+        <url-pattern>/states/*</url-pattern>
     </servlet-mapping>
 </web-app>

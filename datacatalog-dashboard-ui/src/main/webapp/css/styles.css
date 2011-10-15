@@ -1,1 +1,298 @@
-body{font-family: sans-serif;}
+/*------------------------------------*\
+  RESET
+\*------------------------------------*/
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0b1 | 201101
+   NOTE:WORK IN PROGRESS
+   USE WITH CAUTION AND TEST WITH ABANDON */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+/* remember to define visible focus styles!
+:focus{
+ outline:?????;
+} */
+
+/* remember to highlight inserts somehow! */
+ins {
+    text-decoration: none;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/*------------------------------------*\
+  MAIN
+\*------------------------------------*/
+body, html {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#container {
+    height: 100%;
+    width: 100%;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    float: left;
+}
+
+#shadow {
+    height: 100%;
+    width: 1px;
+    float: left;
+    background-color: #888;
+    box-shadow: 0px 0px 6px #000;
+}
+
+#sidebar {
+    width: 22%;
+    height: 100%;
+    float: left;
+}
+
+#info-side {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: inherit;
+    font-size: 11px;
+    font-family: Verdana, sans-serif;
+    /*background: #E8E8E8;*/
+
+}
+
+#info-div {
+    padding: 5px;
+}
+
+#info-side h1 {
+    font-size: 1.3em;
+    font-family: 'Helvetica', Arial, sans-serif;
+    font-weight: lighter;
+}
+
+#info {
+    position: absolute;
+    right: 15px;
+    width: 512px;
+    z-index: 1000;
+    font-size: 11px;
+    font-family: Verdana, sans-serif;
+    background-color: white;
+    opacity: 0.9;
+    padding: 5px;
+    -webkit-box-shadow: 0px 0px 8px #330033;
+    -moz-box-shadow: 0px 0px 8px #330033;
+    box-shadow: 0px 0px 8px #330033;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border: 1px solid #FFCC33;
+}
+
+#info h1 {
+    font-size: 18px;
+    font-family: Helvetica, Arial;
+    font-weight: normal;
+    margin-top: 5px;
+}
+
+.ui-dialog {
+    z-index: 30000;
+}
+
+#tool-bar {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    z-index: 1000;
+    font-size: 11px;
+    font-family: Verdana, sans-serif;
+    background-color: white;
+    opacity: 0.9;
+    padding: 5px;
+    -webkit-box-shadow: 0px 0px 8px #330033;
+    -moz-box-shadow: 0px 0px 8px #330033;
+    box-shadow: 0px 0px 8px #330033;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border: 1px solid #FFCC33;
+}
+
+#tool-bar ul {
+    display: inline;
+}
+
+#tool-bar ul li {
+    margin-left: 0;
+    padding: 0px 15px;
+    list-style: none;
+    display: inline;
+}
+
+#tool-bar ul li .first {
+    margin-left: 0;
+}
+
+.ui-dialog-title {
+    font-family: Verdana, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.olLayerGoogleCopyright {
+    right: 3px;
+    bottom: 2px;
+    left: auto;
+    display: none;
+}
+
+.olLayerGoogleV3.olLayerGoogleCopyright {
+    bottom: 0;
+    right: 0 !important;
+}
+
+.olLayerGooglePoweredBy {
+    left: 2px;
+    bottom: 2px;
+}
+
+.olLayerGoogleV3.olLayerGooglePoweredBy {
+    bottom: 0 !important;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+#tools {
+    height: 30px;
+    position: absolute;
+    bottom: 15px;
+    left: 0px;
+    width: 100%;
+    background-color: #000000;
+    opacity: 0.7;
+    z-index: 1400;
+}
+
+#crawling-stat {
+    position: absolute;
+    bottom: 50px;
+    right: 5px;
+    background-color: #000000;
+    opacity: 0.7;
+    z-index: 1400;
+    background-color: #566D7E;
+    border-radius: 3px 3px 3px 3px;
+    display: none;
+}
+
+#crawling-stat p {
+    font-family: 'Gill Sans', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: lighter;
+    color: #ffffff;
+    margin: 0px;
+    padding: 5px;
+    letter-spacing: 0.15em;
+    background-color: #000000;
+    border-radius: 3px 3px 0 0;
+}
+
+#crawl-stat-chart {
+    width: 320px;
+    height: 152px;
+}
+
+#button-container {
+    float: right;
+    margin-right: 5px;
+    vertical-align: middle;
+    padding-top: 5px;
+}
+
+.tool-bar-btn {
+    border-radius: 3px;
+    border: 1px solid #566D7E;
+    font-family: "Gill Sans", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: #ffffff;
+    padding: 3px;
+    font-weight: lighter;
+    letter-spacing: 0.15em;
+}
+
+.tool-bar-btn a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.tool-bar-btn a:visited {
+    color: #ffffff;
+}
+
+.tool-bar-btn a:hover {
+    color: #566D7E;
+    text-decoration: none;
+}
+
+#crawl-stat-chart {
+    padding: 3px;
+}
