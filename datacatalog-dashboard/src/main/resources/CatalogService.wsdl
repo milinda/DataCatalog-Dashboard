@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="CatalogService" targetNamespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog" xmlns:xmc="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/types" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog" xmlns:xmc="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/types" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            
+			<!-- Imports and Includes-->
+			<xsd:import namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/types" schemaLocation="CatalogService?xsd=xsd0.xsd"/>
+
+		</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="doesUserExist_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:doesUserExistResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateUser_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:updateUserResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="doesUserExist_RequestMessage">
+    <wsdl:part name="part1" element="xmc:doesUserExistRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="objectExists_RequestMessage">
+    <wsdl:part name="part1" element="xmc:objectExistsRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveQueryDefinition_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:saveQueryDefinitionResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getQueryDefinition_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:getQueryDefinitionResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getQueryDefinition_RequestMessage">
+    <wsdl:part name="part1" element="xmc:getQueryDefinitionRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="assignObject_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:assignObjectResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addProperty_RequestMessage">
+    <wsdl:part name="part1" element="xmc:addPropertyRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteObject_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:deleteObjectResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteUser_RequestMessage">
+    <wsdl:part name="part1" element="xmc:deleteUserRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllQueryDescriptions_RequestMessage">
+    <wsdl:part name="part1" element="xmc:getAllQueryDescriptionsRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllQueryDescriptions_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:getAllQueryDescriptionsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createObject_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:createObjectResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="queryUser_RequestMessage">
+    <wsdl:part name="part1" element="xmc:queryUserRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="checkStatus_RequestMessage">
+    <wsdl:part name="part1" element="xmc:checkStatusRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lastUpdate_RequestMessage">
+    <wsdl:part name="part1" element="xmc:lastUpdateRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="whiteboardId_RequestMessage">
+    <wsdl:part name="part1" element="xmc:whiteboardIdRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateProperty_RequestMessage">
+    <wsdl:part name="part1" element="xmc:updatePropertyRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="allWorkspaceQuery_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:queryResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="contextQuery_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:queryResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="queryPropertyDefinitions_RequestMessage">
+    <wsdl:part name="part1" element="xmc:queryPropertyDefinitionsRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="objectIdQuery_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:queryResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="queryPropertyDefinitions_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:queryPropertyDefinitionsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addProperty_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:addPropertyResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createObject_RequestMessage">
+    <wsdl:part name="part1" element="xmc:createObjectRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteUser_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:deleteUserResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="whiteboardId_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:whiteboardIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteObject_RequestMessage">
+    <wsdl:part name="part1" element="xmc:deleteObjectRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteQueryDefinition_RequestMessage">
+    <wsdl:part name="part1" element="xmc:deleteQueryDefinitionRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="checkStatus_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:checkStatusResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="objectIdQuery_RequestMessage">
+    <wsdl:part name="part1" element="xmc:objectIdQueryRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="moveObject_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:moveObjectResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="objectExists_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:objectExistsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createUser_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:createUserResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="contextQuery_RequestMessage">
+    <wsdl:part name="part1" element="xmc:contextQueryRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteProperty_RequestMessage">
+    <wsdl:part name="part1" element="xmc:deletePropertyRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="allWorkspaceQuery_RequestMessage">
+    <wsdl:part name="part1" element="xmc:allWorkspaceQueryRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteProperty_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:deletePropertyResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="queryUser_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:queryUserResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createUser_RequestMessage">
+    <wsdl:part name="part1" element="xmc:createUserRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateUser_RequestMessage">
+    <wsdl:part name="part1" element="xmc:updateUserRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateProperty_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:updatePropertyResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="moveObject_RequestMessage">
+    <wsdl:part name="part1" element="xmc:moveObjectRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteQueryDefinition_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:deleteQueryDefinitionResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="assignObject_RequestMessage">
+    <wsdl:part name="part1" element="xmc:assignObjectRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveQueryDefinition_RequestMessage">
+    <wsdl:part name="part1" element="xmc:saveQueryDefinitionRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lastUpdate_ResponseMessage">
+    <wsdl:part name="part1" element="xmc:lastUpdateResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="CatalogPortType">
+    <wsdl:operation name="checkStatus">
+      <wsdl:input message="tns:checkStatus_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:checkStatus_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lastUpdate">
+      <wsdl:input message="tns:lastUpdate_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:lastUpdate_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createUser">
+      <wsdl:input message="tns:createUser_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:createUser_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUser">
+      <wsdl:input message="tns:updateUser_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:updateUser_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteUser">
+      <wsdl:input message="tns:deleteUser_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:deleteUser_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="queryUser">
+      <wsdl:input message="tns:queryUser_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:queryUser_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="doesUserExist">
+      <wsdl:input message="tns:doesUserExist_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:doesUserExist_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="whiteboardId">
+      <wsdl:input message="tns:whiteboardId_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:whiteboardId_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="assignObject">
+      <wsdl:input message="tns:assignObject_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:assignObject_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createObject">
+      <wsdl:input message="tns:createObject_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:createObject_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteObject">
+      <wsdl:input message="tns:deleteObject_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:deleteObject_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="moveObject">
+      <wsdl:input message="tns:moveObject_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:moveObject_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="objectExists">
+      <wsdl:input message="tns:objectExists_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:objectExists_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addProperty">
+      <wsdl:input message="tns:addProperty_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:addProperty_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateProperty">
+      <wsdl:input message="tns:updateProperty_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:updateProperty_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteProperty">
+      <wsdl:input message="tns:deleteProperty_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:deleteProperty_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="query">
+      <wsdl:input message="tns:contextQuery_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:contextQuery_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="objectIdQuery">
+      <wsdl:input message="tns:objectIdQuery_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:objectIdQuery_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="allWorkspaceQuery">
+      <wsdl:input message="tns:allWorkspaceQuery_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:allWorkspaceQuery_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="queryPropertyDefinitions">
+      <wsdl:input message="tns:queryPropertyDefinitions_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:queryPropertyDefinitions_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllQueryDescriptions">
+      <wsdl:input message="tns:getAllQueryDescriptions_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:getAllQueryDescriptions_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getQueryDefinition">
+      <wsdl:input message="tns:getQueryDefinition_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:getQueryDefinition_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="saveQueryDefinition">
+      <wsdl:input message="tns:saveQueryDefinition_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:saveQueryDefinition_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteQueryDefinition">
+      <wsdl:input message="tns:deleteQueryDefinition_RequestMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:deleteQueryDefinition_ResponseMessage">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CatalogSoapBinding" type="tns:CatalogPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="checkStatus">
+      <soap:operation soapAction="urn:checkStatus" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lastUpdate">
+      <soap:operation soapAction="urn:lastUpdate" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createUser">
+      <soap:operation soapAction="urn:createUser" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUser">
+      <soap:operation soapAction="urn:updateUser" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteUser">
+      <soap:operation soapAction="urn:deleteUser" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="queryUser">
+      <soap:operation soapAction="urn:queryUser" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="doesUserExist">
+      <soap:operation soapAction="urn:doesUserExist" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="whiteboardId">
+      <soap:operation soapAction="urn:whiteboardId" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="assignObject">
+      <soap:operation soapAction="urn:assignObject" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createObject">
+      <soap:operation soapAction="urn:createObject" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteObject">
+      <soap:operation soapAction="urn:deleteObject" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="moveObject">
+      <soap:operation soapAction="urn:moveObject" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="objectExists">
+      <soap:operation soapAction="urn:objectExists" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addProperty">
+      <soap:operation soapAction="urn:addProperty" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateProperty">
+      <soap:operation soapAction="urn:updateProperty" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteProperty">
+      <soap:operation soapAction="urn:deleteProperty" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="query">
+      <soap:operation soapAction="urn:query" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="objectIdQuery">
+      <soap:operation soapAction="urn:objectIdQuery" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="allWorkspaceQuery">
+      <soap:operation soapAction="urn:allWorkspaceQuery" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="queryPropertyDefinitions">
+      <soap:operation soapAction="urn:queryPropertyDefinitions" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllQueryDescriptions">
+      <soap:operation soapAction="urn:getAllQueryDescriptions" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getQueryDefinition">
+      <soap:operation soapAction="urn:getQueryDefinition" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="saveQueryDefinition">
+      <soap:operation soapAction="urn:saveQueryDefinition" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteQueryDefinition">
+      <soap:operation soapAction="urn:deleteQueryDefinition" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/service"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CatalogService">
+    <wsdl:port name="CatalogPort" binding="tns:CatalogSoapBinding">
+      <soap:address location="http://coffeetree.cs.indiana.edu:10081/axis2/services/CatalogService/"/>
+    </wsdl:port>
+  </wsdl:service>
+    <xsd:annotation>
+		<xsd:documentation>
+			Copyright 2007 The Trustees of Indiana University
+			
+			Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+			you may not use this file except in compliance with the License.
+			You may obtain a copy of the License at
+			
+			http://www.apache.org/licenses/LICENSE-2.0
+			
+			Unless required by applicable law or areed to in writing, software
+			distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+			WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			See the License for the specific language governing permissions and
+			limitations under the License.
+
+			Author: Scott Jensen, scjensen@cs.indiana.edu
+		</xsd:documentation>
+	</xsd:annotation>
+</wsdl:definitions>
