@@ -277,6 +277,8 @@ body, html {
     padding: 3px;
     font-weight: lighter;
     letter-spacing: 0.15em;
+    float:right;
+    margin-right: 5px;
 }
 
 .tool-bar-btn a {
@@ -291,6 +293,10 @@ body, html {
 .tool-bar-btn a:hover {
     color: #566D7E;
     text-decoration: none;
+}
+
+.tool-bar-btn-left {
+    float: left;
 }
 
 #crawl-stat-chart {

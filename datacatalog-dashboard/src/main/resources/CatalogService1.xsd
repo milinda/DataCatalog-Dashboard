@@ -1,0 +1,304 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xmc="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/types" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/types">
+<xsd:annotation>
+<xsd:documentation>
+			Copyright 2007 The Trustees of Indiana University
+			
+			Licensed under the Apache License, Version 2.0 (the "License");
+			you may not use this file except in compliance with the License.
+			You may obtain a copy of the License at
+			
+			http://www.apache.org/licenses/LICENSE-2.0
+			
+			Unless required by applicable law or areed to in writing, software
+			distributed under the License is distributed on an "AS IS" BASIS,
+			WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			See the License for the specific language governing permissions and
+			limitations under the License.
+
+			Author: Scott Jensen, scjensen@cs.indiana.edu
+		</xsd:documentation>
+</xsd:annotation>
+<xsd:simpleType name="catalogStatusType">
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="OPERATION_SUCCESSFUL"/>
+<xsd:enumeration value="UNHANDLED_EXCEPTION"/>
+<xsd:enumeration value="INVALID_STATUS"/>
+<xsd:enumeration value="AUTHORIZATION_ERROR"/>
+<xsd:enumeration value="NO_DATABASE_CONNECTION"/>
+<xsd:enumeration value="STORED_PROC_SQL_ERROR"/>
+<xsd:enumeration value="INVALID_OBJECT_TYPE"/>
+<xsd:enumeration value="NO_PARENT_SPECIFIED_FOR_NEW_OBJECT"/>
+<xsd:enumeration value="PARENT_BELOW_CHILD_LEVEL"/>
+<xsd:enumeration value="INVALID_PARENT"/>
+<xsd:enumeration value="PARENT_DOES_NOT_EXIST"/>
+<xsd:enumeration value="MISSING_DN"/>
+<xsd:enumeration value="CREATE_ID_OF_ZERO"/>
+<xsd:enumeration value="SQL_OBJECT_DEFINITION"/>
+<xsd:enumeration value="OBJECT_DEFINITION_ERROR"/>
+<xsd:enumeration value="SQL_PARENT_DEFINITION"/>
+<xsd:enumeration value="PARENT_DEFINITION_ERROR"/>
+<xsd:enumeration value="INVALID_INSERT"/>
+<xsd:enumeration value="OBJECT_ALREADY_EXISTS"/>
+<xsd:enumeration value="INVALID_OWNER"/>
+<xsd:enumeration value="OBJECT_RESET_FAILED"/>
+<xsd:enumeration value="INSERT_FAILED"/>
+<xsd:enumeration value="INSERT_PARTIALLY_FAILED"/>
+<xsd:enumeration value="INCOMPLETE_CLOB_INSERT"/>
+<xsd:enumeration value="SQL_CLOB_INSERT"/>
+<xsd:enumeration value="NO_PROPERTIES_FOUND"/>
+<xsd:enumeration value="INCOMPLETE_INSERT"/>
+<xsd:enumeration value="PROPERTY_NOT_DEFINED"/>
+<xsd:enumeration value="INCOMPLETE_PROPERTY_INSERT"/>
+<xsd:enumeration value="PROPERTY_INSERT_FAILURE"/>
+<xsd:enumeration value="INCOMPLETE_ELEMENT_INSERT"/>
+<xsd:enumeration value="NO_QUERYABLE_PROPERTIES_ADDED"/>
+<xsd:enumeration value="NO_QUERYABLE_ELEMENTS_ADDED"/>
+<xsd:enumeration value="ELEMENT_NOT_DEFINED"/>
+<xsd:enumeration value="ELEMENT_HAS_INVALID_PROPERTY"/>
+<xsd:enumeration value="STRING_ELEMENT_EXCEEDS_MAX"/>
+<xsd:enumeration value="INT_ELEMENT_CONTAINS_FLOAT"/>
+<xsd:enumeration value="INT_ELEMENT_CONTAINS_NONNUMERIC"/>
+<xsd:enumeration value="FLOAT_ELEMENT_CONTAINS_NONNUMERIC"/>
+<xsd:enumeration value="INVALID_TIME_ELEMENT"/>
+<xsd:enumeration value="INVALID_DATETIME_ELEMENT"/>
+<xsd:enumeration value="INVALID_POINT_ELEMENT"/>
+<xsd:enumeration value="INVALID_POLYGON_ELEMENT"/>
+<xsd:enumeration value="INVALID_SPATIAL_ELEMENT"/>
+<xsd:enumeration value="SQL_METADATA_INSERT"/>
+<xsd:enumeration value="XSLT_TRANSFORMER_ERROR"/>
+<xsd:enumeration value="XML_BEAN_PARSE_ERROR"/>
+<xsd:enumeration value="PROPERTY_DEPENDENCY_ERROR"/>
+<xsd:enumeration value="ADD_ATTRIBUTE_ERROR"/>
+<xsd:enumeration value="TRANSACTION_ROLLBACK_ERROR"/>
+<xsd:enumeration value="AUTOCOMMIT_RESET_ERROR"/>
+<xsd:enumeration value="CANNOT_PROCESS_PROPERTY_WITHOUT_CLOBS"/>
+<xsd:enumeration value="QUERYABLE_ATTRIBUTES_PARTIAL_FAILURE"/>
+<xsd:enumeration value="NO_QUERYABLE_ATTRIBUTES_ADDED"/>
+<xsd:enumeration value="NO_DATABASE_CONNECTION"/>
+<xsd:enumeration value="STORED_PROC_SQL_ERROR"/>
+<xsd:enumeration value="INVALID_OBJECT_TYPE"/>
+<xsd:enumeration value="NO_PARENT_SPECIFIED_FOR_NEW_OBJECT"/>
+<xsd:enumeration value="PARENT_BELOW_CHILD_LEVEL"/>
+<xsd:enumeration value="CONNECTION_POOL_ERROR"/>
+<xsd:enumeration value="NO_DB_CONNECTION_AVAILABLE"/>
+<xsd:enumeration value="CREATE_ID_OF_ZERO"/>
+<xsd:enumeration value="SQL_OBJECT_DEFINITION"/>
+<xsd:enumeration value="SQL_CLOB_INSERT"/>
+<xsd:enumeration value="AUTHORIZATION"/>
+<xsd:enumeration value="CREATE_USER"/>
+<xsd:enumeration value="SQL_CREATE_USER"/>
+<xsd:enumeration value="NO_USER_ID"/>
+<xsd:enumeration value="NO_GUID"/>
+<xsd:enumeration value="GETTING_OBJECT_ID"/>
+<xsd:enumeration value="USER_EXISTENCE_CHECK"/>
+<xsd:enumeration value="DUPLICATE_DN"/>
+<xsd:enumeration value="WHITEBOARD_CREATION_ERROR"/>
+<xsd:enumeration value="WHITEBOARD_SQL_ERROR"/>
+<xsd:enumeration value="WHITEBOARD_MISSING"/>
+<xsd:enumeration value="OBJECT_INSERT_ERROR"/>
+<xsd:enumeration value="NOT_SCHEMA_VALID"/>
+<xsd:enumeration value="OBJECT_DOES_NOT_EXIST"/>
+<xsd:enumeration value="QUERY_SETUP_ERROR"/>
+<xsd:enumeration value="DN_DOES_NOT_EXIST"/>
+<xsd:enumeration value="NO_RESULTS_FOUND"/>
+<xsd:enumeration value="MYLEAD_INTERNAL_ERROR"/>
+<xsd:enumeration value="SP_SQL_ERROR"/>
+<xsd:enumeration value="SQL_ERROR"/>
+<xsd:enumeration value="SQL_QUERYBYID_ERROR"/>
+<xsd:enumeration value="AXIS2_CONTEXT_ERROR"/>
+<xsd:enumeration value="RESULT_SERVLET_ERROR"/>
+<xsd:enumeration value="XML_BEAN_QRY_RESULT_PARSE_ERROR"/>
+<xsd:enumeration value="OBJECT_LOCK"/>
+<xsd:enumeration value="PROPERTY_MAP_SETUP_ERROR"/>
+<xsd:enumeration value="DIRECT_QUERY_RESULT_ERROR"/>
+<xsd:enumeration value="INVALID_HIERARCHY_FILTER"/>
+<xsd:enumeration value="SQL_CONTEXTQUERY_ERROR"/>
+<xsd:enumeration value="INVALID_DELETE_RANGE"/>
+<xsd:enumeration value="INVALID_DELETE_POSITION"/>
+<xsd:enumeration value="PROPERTY_NOT_DELETABLE"/>
+<xsd:enumeration value="CANNOT_DELETE_MULTIPLE_INSTANCES"/>
+<xsd:enumeration value="CANNOT_DELETE_SUBPROPERTY"/>
+<xsd:enumeration value="CANNOT_DELETE_WHITEBOARD_PROPERTIES"/>
+<xsd:enumeration value="NO_PROPERTY_CARDINALITY"/>
+<xsd:enumeration value="PROPERTY_HAS_NO_INSTANCE"/>
+<xsd:enumeration value="NO_DELETE_POSITION"/>
+<xsd:enumeration value="DELETE_RANGE_EXCEEDS_CARDINALITY"/>
+<xsd:enumeration value="PROPERTY_DELETE_ID_QUERY_ERROR"/>
+<xsd:enumeration value="PROPERTY_DELETE_TIMESTAMP"/>
+<xsd:enumeration value="PROPERTY_DELETE_ERROR"/>
+<xsd:enumeration value="CANNOT_DELETE_WHITEBOARD"/>
+<xsd:enumeration value="OBJECT_DELETE_ERROR"/>
+<xsd:enumeration value="CANNOT_DELETE_SELF"/>
+<xsd:enumeration value="SQL_DELETE_PROPERTY"/>
+<xsd:enumeration value="CANNOT_MOVE_WHITEBOARD"/>
+<xsd:enumeration value="INVALID_PARENT_TYPE"/>
+<xsd:enumeration value="OBJECT_MISSING"/>
+<xsd:enumeration value="NO_CIRCULAR_OWNERSHIP"/>
+<xsd:enumeration value="PARENT_RELATIONSHIP_MISSING"/>
+<xsd:enumeration value="SQL_MOVE_ERROR"/>
+<xsd:enumeration value="MOVE_FAILED"/>
+<xsd:enumeration value="UPDATE_FAILED"/>
+<xsd:enumeration value="UPDATE_PARTIALLY_FAILED"/>
+<xsd:enumeration value="NO_UPDATE_POSITION"/>
+<xsd:enumeration value="UPDATE_POSITION_EXCEEDS_CARDINALITY"/>
+<xsd:enumeration value="SQL_UPDATE_PROPERTY"/>
+<xsd:enumeration value="UPDATE_CLOB_INFO_MISSING"/>
+<xsd:enumeration value="PROPERTY_UPDATE_TIMESTAMP"/>
+<xsd:enumeration value="PROPERTY_CLOB_UPDATE"/>
+<xsd:enumeration value="SQL_WORKSPACEQUERY_ERROR"/>
+<xsd:enumeration value="WORKSPACE_IS_EMPTY"/>
+<xsd:enumeration value="PROPERTY_DEF_QUERY_ERROR"/>
+<xsd:enumeration value="RESULTS_DO_NOT_VALIDATE"/>
+<xsd:enumeration value="NO_QUERY_DEFINITIONS"/>
+<xsd:enumeration value="QUERY_DEFINITION_DOES_NOT_EXIST"/>
+<xsd:enumeration value="XMLBEANS_PARSE_ERROR"/>
+<xsd:enumeration value="SAVE_QUERY_DEFINITION_ERROR"/>
+<xsd:enumeration value="FATAL_QUERY_ERROR"/>
+<xsd:enumeration value="NON_FATAL_QUERY_ERROR"/>
+<xsd:enumeration value="FATAL_STATUS_ERROR"/>
+<xsd:enumeration value="NON_FATAL_STATUS_ERROR"/>
+<xsd:enumeration value="SQL_DELETE_USER"/>
+<xsd:enumeration value="FATAL_DELETE_ERROR"/>
+<xsd:enumeration value="NON_FATAL_DELETE_ERROR"/>
+<xsd:enumeration value="FATAL_CREATE_ERROR"/>
+<xsd:enumeration value="NON_FATAL_CREATE_ERROR"/>
+<xsd:enumeration value="FATAL_UPDATE_ERROR"/>
+<xsd:enumeration value="NON_FATAL_UPDATE_ERROR"/>
+<xsd:enumeration value="UNKNOWN"/>
+<xsd:enumeration value="ATTRIBUTE_DOES_NOT_EXIST"/>
+<xsd:enumeration value="MANDATORY_ATTRIBUTE_ABSENT"/>
+<xsd:enumeration value="FILE_NAME_ALREADY_EXISTS"/>
+<xsd:enumeration value="ATTRIBUTE_ALREADY_PRESENT"/>
+<xsd:enumeration value="COLLECTION_DOES_NOT_EXIST"/>
+<xsd:enumeration value="INVALID_PERMISSIONS"/>
+<xsd:enumeration value="INVALID_OPERATION"/>
+<xsd:enumeration value="SPECIFIED_COLLECTION_EXISTS"/>
+<xsd:enumeration value="CHILD_COLLECTION_NOT_EXISTING"/>
+<xsd:enumeration value="PARENT_COLLECTION_DOES_NOT_EXIST"/>
+<xsd:enumeration value="PARENT_COLLECTION_ALREADY_EXISTS"/>
+<xsd:enumeration value="INVALID_DATE"/>
+<xsd:enumeration value="INVALID_TIME"/>
+<xsd:enumeration value="OBJECT_ALREADY_EXISTS"/>
+<xsd:enumeration value="FILE_BELONGS_TO_COLLECTION"/>
+<xsd:enumeration value="OBJECT_BELONGS_TO_COLLECTION"/>
+<xsd:enumeration value="FILE_DOES_NOT_BELONG_TO_COLLECTION"/>
+<xsd:enumeration value="OBJECT_DOES_NOT_BELONG_TO_COLLECTION"/>
+<xsd:enumeration value="NOT_EXECUTED"/>
+<xsd:enumeration value="DN_IS_NULL"/>
+<xsd:enumeration value="DN_IS_EMPTY"/>
+<xsd:enumeration value="OBJECT_TYPE_MISSING"/>
+<xsd:enumeration value="AMBIGUOUS_PARENT"/>
+<xsd:enumeration value="NO_PARENT_ALLOWED"/>
+<xsd:enumeration value="NO_PARENT_SPECIFIED"/>
+<xsd:enumeration value="INDEX_OUT_OF_BOUNDS"/>
+<xsd:enumeration value="CREATE_ERRORS"/>
+<xsd:enumeration value="XSLT_ERROR"/>
+<xsd:enumeration value="CREATE_COLLECTION_ERROR"/>
+<xsd:enumeration value="CREATE_FILE_ERROR"/>
+<xsd:enumeration value="SEQUENCE_ID_OF_ZERO"/>
+<xsd:enumeration value="CREATE_ATTRIBUTE_ERROR"/>
+<xsd:enumeration value="CREATE_ELEMENT_ERROR"/>
+<xsd:enumeration value="DEFAULT_WHITEBOARD_ERROR"/>
+<xsd:enumeration value="OUTPUT_INIT_ERROR"/>
+<xsd:enumeration value="SP_RESULT_ERROR"/>
+<xsd:enumeration value="QUERY_REPLICA_ERROR"/>
+<xsd:enumeration value="UPDATE_USER_ERROR"/>
+<xsd:enumeration value="ADD_REPLICA_ERROR"/>
+<xsd:enumeration value="MOVE_ERROR"/>
+<xsd:enumeration value="CANNOT_MOVE_DEFAULT"/>
+<xsd:enumeration value="PARENT_NOT_COMPATIBLE"/>
+<xsd:enumeration value="SELF_PARENT_NOT_ALLOWED"/>
+<xsd:enumeration value="QRY_SPPROCESS_QUERY"/>
+<xsd:enumeration value="QRY_INVALID_FILTER"/>
+<xsd:enumeration value="QRY_HIERARCHY_ERROR"/>
+<xsd:enumeration value="QRY_FILL_COLLECTION_ERROR"/>
+<xsd:enumeration value="QRY_FILL_FILE_ERROR"/>
+<xsd:enumeration value="QRY_RESULTS_ERROR"/>
+<xsd:enumeration value="INVALID_ELEMENT"/>
+<xsd:enumeration value="NO_DATA"/>
+<xsd:enumeration value="PULL_PARSER_ERROR"/>
+<xsd:enumeration value="RESULTS_MISSING"/>
+<xsd:enumeration value="RETURNTYPE_MISSING"/>
+<xsd:enumeration value="EXECUTE_ATTR_ERROR"/>
+<xsd:enumeration value="RESPONSE_EXCEPTION"/>
+<xsd:enumeration value="ENGINE_SYS_SETUP_EXCEPTION"/>
+<xsd:enumeration value="GDS_USER_EXCEPTION"/>
+<xsd:enumeration value="GDS_SYS_EXCEPTION"/>
+<xsd:enumeration value="ACTIVITY_SYS_EXCEPTION"/>
+<xsd:enumeration value="ENGINE_USER_SETUP_EXCEPTION"/>
+<xsd:enumeration value="ACTIVITY_USER_EXCEPTION"/>
+<xsd:enumeration value="REMOTE_EXCEPTION"/>
+<xsd:enumeration value="MISSING_DATA"/>
+<xsd:enumeration value="MISSING_PARENT"/>
+<xsd:enumeration value="GETTING_OBJECT_ID"/>
+<xsd:enumeration value="TRANSFORM"/>
+<xsd:enumeration value="FILE_DEFINITION"/>
+<xsd:enumeration value="COLLECTION_DEFINITION"/>
+<xsd:enumeration value="SQL_FILE_DEFINITION"/>
+<xsd:enumeration value="SQL_COLLECTION_DEFINITION"/>
+<xsd:enumeration value="SQL_POST_CLOB"/>
+<xsd:enumeration value="MISSING_CLOB_DATA"/>
+<xsd:enumeration value="PULL_PARSER"/>
+<xsd:enumeration value="MISSING_ELEMENT"/>
+<xsd:enumeration value="ATTR_LIMITATION_CHECK"/>
+<xsd:enumeration value="MODIFICATION_TIMESTAMP"/>
+<xsd:enumeration value="ATTR_ARRAY_INDEX"/>
+</xsd:restriction>
+</xsd:simpleType>
+<xsd:complexType name="methodParameterType">
+<xsd:sequence>
+<xsd:element name="paramName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="dataType" type="xsd:string"/>
+<xsd:choice minOccurs="0">
+<xsd:element name="paramValue" type="xsd:string"/>
+<xsd:element name="paramXmlValue" type="xsd:anyType"/>
+</xsd:choice>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="methodParameter" type="xmc:methodParameterType"/>
+<xsd:element name="stackTrace">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="traceElementCount" type="xsd:integer"/>
+<xsd:element maxOccurs="unbounded" name="traceLine" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:complexType name="errorDetailType">
+<xsd:sequence>
+<xsd:element name="cause" type="xmc:catalogStatusType"/>
+<xsd:element name="className" type="xsd:string"/>
+<xsd:element name="methodName" type="xsd:string"/>
+<xsd:element name="description" type="xsd:string"/>
+<xsd:element minOccurs="0" name="javaException" type="xsd:anyType"/>
+<xsd:element minOccurs="0" ref="xmc:stackTrace"/>
+<xsd:element minOccurs="0" name="data" type="xsd:anyType"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="fatalError" type="xmc:errorDetailType"/>
+<xsd:element name="nonFatalError" type="xmc:errorDetailType"/>
+<xsd:complexType name="operationSummaryType">
+<xsd:sequence>
+<xsd:element name="operationStatus" type="xmc:catalogStatusType"/>
+<xsd:element name="operationName" type="xsd:string"/>
+<xsd:element maxOccurs="unbounded" minOccurs="0" ref="xmc:methodParameter"/>
+<xsd:element maxOccurs="unbounded" minOccurs="0" ref="xmc:fatalError"/>
+<xsd:element maxOccurs="unbounded" minOccurs="0" ref="xmc:nonFatalError"/>
+<xsd:element minOccurs="0" name="operationXml" type="xsd:anyType"/>
+<xsd:element maxOccurs="unbounded" minOccurs="0" ref="xmc:operationSummary"/>
+</xsd:sequence>
+<xsd:attribute name="hasFatalErrors" type="xsd:boolean" use="required"/>
+<xsd:attribute name="hasNonFatalErrors" type="xsd:boolean" use="required"/>
+</xsd:complexType>
+<xsd:element name="operationSummary" type="xmc:operationSummaryType"/>
+<xsd:complexType name="catalogOperationStatusType">
+<xsd:sequence>
+<xsd:element name="status" type="xmc:catalogStatusType"/>
+<xsd:choice minOccurs="0">
+<xsd:element name="errorStreamUrl" type="xsd:anyURI"/>
+<xsd:element ref="xmc:operationSummary"/>
+</xsd:choice>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="catalogOperationStatus" type="xmc:catalogOperationStatusType"/>
+</xsd:schema>

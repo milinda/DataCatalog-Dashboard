@@ -4,7 +4,7 @@
     <xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog" xmlns:xmc="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/types" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
             
 			<!-- Imports and Includes-->
-			<xsd:import namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/types" schemaLocation="CatalogService?xsd=xsd0.xsd"/>
+			<xsd:import namespace="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/types" schemaLocation="CatalogService.xsd"/>
 
 		</xsd:schema>
   </wsdl:types>

@@ -5,6 +5,7 @@ function Dashboard(container) {
     this.maxExtent = new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508);
     this.restrictedExtent = this.maxExtent.clone();
     this.maxResolution = 156543.0339;
+    this.currentSelectedFeatures = {};
 
     this.mapOptions = {
         projection: new OpenLayers.Projection("EPSG:900913"),
@@ -20,6 +21,10 @@ function Dashboard(container) {
             )
         ]
     }
+}
+
+Dashboard.prototype.getMap = function() {
+    return this.map;
 }
 
 Dashboard.prototype.initialize = function() {
@@ -335,22 +340,75 @@ Dashboard.prototype.testStateSelection = function() {
             multiple: false, hover: false,
             toggleKey: "ctrlKey", // ctrl key removes from selection
             multipleKey: "shiftKey", // shift key adds to selection
-            box: true
+            box: true,
+            onSelect: function(position) {
+                alert(position);
+            }
         }
     )
 
+    var selectedFeatures = this.currentSelectedFeatures;
     vectors.events.on({
         'featureselected': function(feature) {
+            selectedFeatures[feature.feature.id] = feature;
         },
         'featureunselected': function(feature) {
+            delete selectedFeatures[feature.feature.id];
         }
     });
 
+    var myStyles = new OpenLayers.StyleMap({
+        "default": new OpenLayers.Style({
+            pointRadius: "${type}", // sized according to type attribute
+            fillColor: "#ffcc66",
+            fillOpacity: 0,
+            strokeColor: "#000000",
+            strokeWidth: 2,
+            graphicZIndex: 1
+        }),
+        "select": new OpenLayers.Style({
+            fillColor: "#66ccff",
+            fillOpacity: 0,
+            strokeColor: "#3399ff",
+            graphicZIndex: 1
+        })
+    });
+
+    var polygonLayer = new OpenLayers.Layer.Vector("Polygon Layer", {styleMap: myStyles});
+    var dboard = this;
+    this.map.addLayer(polygonLayer);
+    polyOptions = {sides: 4};
+    polygonControl = new OpenLayers.Control.DrawFeature(polygonLayer,
+        OpenLayers.Handler.RegularPolygon,
+        {handlerOptions: polyOptions, featureAdded: function(feature){
+            var layer = feature.layer;
+            for (index in layer.features){
+                if(layer.features[index].id != feature.id){
+                    layer.removeFeatures([layer.features[index]]);
+                }
+            }
+            dboard.currentSelectedFeatures[feature.id] = feature;
+            for(index in dboard.currentSelectedFeatures){
+                if(dboard.currentSelectedFeatures[index].id != feature.id){
+                    delete dboard.currentSelectedFeatures[index];
+                }
+            }
+
+            //alert(feature.geometry.getVertices()[0].clone().transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326")));
+        }});
+
+    var selectPoly = new OpenLayers.Control.SelectFeature(polygonLayer, {hover: false, clickout: true, toggle: false});
+            this.map.addControl(selectPoly);
+
+    this.map.addControl(polygonControl);
+    this.map.addControl(selectPoly);
 
     this.map.addControl(highlightCtrl);
-    this.map.addControl(selectCtrl);
+    //this.map.addControl(selectCtrl);
 
     highlightCtrl.activate();
-    selectCtrl.activate();
+    //selectCtrl.activate();
+    polygonControl.activate();
+    selectPoly.activate();
 }
 
