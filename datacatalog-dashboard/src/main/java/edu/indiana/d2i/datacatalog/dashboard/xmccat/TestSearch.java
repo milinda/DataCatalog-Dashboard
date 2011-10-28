@@ -19,9 +19,16 @@
 package edu.indiana.d2i.datacatalog.dashboard.xmccat;
 
 import edu.indiana.dde.catalog.catalogclient.CatalogServiceStub;
+import edu.indiana.dde.metadata.catalog.domain.CatalogAggregationType;
 import edu.indiana.dde.metadata.catalog.types.*;
 
+import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.xml.namespace.QName;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class TestSearch {
     public static final String servicePath = "/axis2/services/CatalogService";
@@ -40,7 +47,7 @@ public class TestSearch {
     public static void main(String[] args) {
         TestSearch ts = new TestSearch();
         ts.checkStatus();
-        ts.getAllWorkspace();
+        ts.testContextQuery();
     }
 
     public void checkStatus() {
@@ -59,8 +66,8 @@ public class TestSearch {
         }
     }
 
-    public void getAllWorkspace(){
-        try{
+    public void getAllWorkspace() {
+        try {
             CatalogServiceStub stub = getStub(hostName, port, dn);
             AllWorkspaceQueryRequestDocument requestDocument = AllWorkspaceQueryRequestDocument.Factory.newInstance();
             AllWorkspaceQueryRequestDocument.AllWorkspaceQueryRequest request = requestDocument.addNewAllWorkspaceQueryRequest();
@@ -74,9 +81,108 @@ public class TestSearch {
 
             QueryResponseDocument responseDocument = stub.allWorkspaceQuery(requestDocument);
             System.out.println(responseDocument.toString());
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void testContextQuery() {
+        try {
+            CatalogServiceStub stub = getStub(hostName, port, dn);
+            ContextQueryRequestDocument contextQueryRequestDocument =
+                    ContextQueryRequestDocument.Factory.newInstance();
+            ContextQueryRequestDocument.ContextQueryRequest contextQueryRequest = contextQueryRequestDocument.addNewContextQueryRequest();
+            contextQueryRequest.setQueryTarget(getTarget().getQueryTarget());
+
+            QueryResultFormatType resultFormatType = QueryResultFormatType.Factory.newInstance();
+            resultFormatType.setOffset(0);
+            resultFormatType.setCount(10);
+
+            resultFormatType.setHierarchyFilter(HierarchyFilterType.CHILDREN);
+            resultFormatType.setContentFilter(ContentFilterType.FULL_SCHEMA);
+
+            resultFormatType.setResultDeliveryMethod(CatalogDeliveryType.DIRECT);
+            resultFormatType.setErrorDeliveryMethod(CatalogDeliveryType.DIRECT);
+
+            contextQueryRequest.setQueryResultFormat(resultFormatType);
+
+            System.out.println(contextQueryRequestDocument.toString());
+            QueryResponseDocument response = stub.query(contextQueryRequestDocument);
+
+            System.out.println(response.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private QueryTargetDocument getSearchNameTarget() throws ParseException {
+         QueryTargetDocument queryTargetDocument = QueryTargetDocument.Factory.newInstance();
+
+        QueryObjectType queryObjectType = queryTargetDocument.addNewQueryTarget();
+        queryObjectType.setAggrType(CatalogAggregationType.COLLECTION);
+
+        SimpleDateFormat formatter  = new SimpleDateFormat("yyyy/mm/dd");
+
+        Calendar end = Calendar.getInstance();
+        end.setTime(formatter.parse("2011/11/22"));
+
+        Calendar start = Calendar.getInstance();
+        start.setTime(formatter.parse("2011/11/21"));
+
+        //queryObjectType.setCreateDateEnd(end);
+        //queryObjectType.setCreateDateStart(start);
+
+        QueryPropertyType queryPropertyType = queryObjectType.addNewQueryProperty();
+
+        return queryTargetDocument;
+    }
+
+
+    private QueryTargetDocument getTarget() throws ParseException {
+        QueryTargetDocument queryTargetDocument = QueryTargetDocument.Factory.newInstance();
+
+        QueryObjectType queryObjectType = queryTargetDocument.addNewQueryTarget();
+        queryObjectType.setAggrType(CatalogAggregationType.FILE);
+
+        SimpleDateFormat formatter  = new SimpleDateFormat("yyyy/mm/dd");
+
+        Calendar end = Calendar.getInstance();
+        end.setTime(formatter.parse("2011/11/21"));
+
+        Calendar start = Calendar.getInstance();
+        start.setTime(formatter.parse("2011/11/22"));
+
+        //queryObjectType.setCreateDateEnd(end);
+        //queryObjectType.setCreateDateStart(start);
+
+        QueryPropertyType queryPropertyType = queryObjectType.addNewQueryProperty();
+        queryPropertyType.setName("bounding");
+        queryPropertyType.setSource("LEAD");
+        QueryElementType queryElementType = queryPropertyType.addNewQueryElement();
+        queryElementType.setName("boundingBox");
+        queryElementType.setSource("LEAD");
+        QueryPolygonElementType queryPolygonElementType = queryElementType.addNewQueryPolygonElement();
+
+        QueryXyPointType xyPoint = queryPolygonElementType.addNewXyPoint();
+        xyPoint.setXPos(BigDecimal.valueOf(-120));
+        xyPoint.setYPos(BigDecimal.valueOf(51));
+
+        xyPoint = queryPolygonElementType.addNewXyPoint();
+        xyPoint.setXPos(BigDecimal.valueOf(-125));
+        xyPoint.setYPos(BigDecimal.valueOf(51));
+
+        xyPoint = queryPolygonElementType.addNewXyPoint();
+        xyPoint.setXPos(BigDecimal.valueOf(-125));
+        xyPoint.setYPos(BigDecimal.valueOf(42));
+
+        xyPoint = queryPolygonElementType.addNewXyPoint();
+        xyPoint.setXPos(BigDecimal.valueOf(-120));
+        xyPoint.setYPos(BigDecimal.valueOf(42));
+
+        queryPolygonElementType.setSpatialComparison(SpatialComparisonType.CONTAINS);
+
+        return queryTargetDocument;
     }
 
     /**
