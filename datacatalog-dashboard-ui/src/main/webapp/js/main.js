@@ -46,15 +46,14 @@ Dashboard.prototype.initialize = function() {
 
     this.map.setCenter(point, 4);
 
-    //this.initializeInfo();
+    this.initSidebar();
     //this.initToolBar();
     this.testStateSelection();
 }
 
 
-Dashboard.prototype.initializeInfo = function() {
-    $("#info").css("bottom", $("#tool-bar").height() + 50);
-    $("#info").css("width", $("#tool-bar").width() - 3);
+Dashboard.prototype.initSidebar = function() {
+    $("#crawling-stat").css("bottom", $("#indexing-stat").height() + 15);
 }
 
 Dashboard.prototype.initToolBar = function() {

@@ -15,20 +15,20 @@ CrawlingStats.prototype.addCrawlingStatsWidget = function() {
     var cstat = this;
     var dboard = this.dashboard;
     // Adding the button responsible for toggling the widget
-    this.toolBar.addButton({id: "crawl-stat-toggle", label: "Crawl Stats"}).click(
-        function() {
-            $("#crawling-stat").fadeToggle("slow", function() {
-                if ($("#crawling-stat").css("display") == "none") {
-                    clearInterval(crawlDataUpdater);
-                } else {
-                    crawlDataUpdater = setInterval(function() {
-                        cstat.drawCrawlStatChart()
-                    }, 100);
-                }
-            });
-            return false;
-        }
-    );
+//    this.toolBar.addButton({id: "crawl-stat-toggle", label: "Crawl Stats"}).click(
+//        function() {
+//            $("#crawling-stat").fadeToggle("slow", function() {
+//                if ($("#crawling-stat").css("display") == "none") {
+//                    clearInterval(crawlDataUpdater);
+//                } else {
+//                    crawlDataUpdater = setInterval(function() {
+//                        cstat.drawCrawlStatChart()
+//                    }, 100);
+//                }
+//            });
+//            return false;
+//        }
+//    );
 
     this.toolBar.addButton({id: "get-data-products", label: "Get Data Products"}).click(
         function(e) {
@@ -37,14 +37,27 @@ CrawlingStats.prototype.addCrawlingStatsWidget = function() {
             var map = dboard.getMap();
             var boxes = new OpenLayers.Layer.Vector("boxes");
 
-            for (feature in dboard.currentSelectedFeatures) {
+            for (var feature in dboard.currentSelectedFeatures) {
                 var featureBounds = dboard.currentSelectedFeatures[feature].geometry.getVertices();
                 alert(featureBounds);
                 //boxes.addFeatures(new OpenLayers.Feature.Vector(OpenLayers.Bounds.fromArray(featureBounds).toGeometry()));
             }
             map.addLayer(boxes);
         }
-    )
+    );
+
+    this.toolBar.addButton({id: "clear-selection", label: "Clear Selection"}).click(
+        function(e) {
+            e.preventDefault();
+
+            for (var featureIndex in dboard.currentSelectedFeatures) {
+                var feature = dboard.currentSelectedFeatures[featureIndex];
+                var layer = feature.layer;
+                layer.removeFeatures([feature]);
+                delete feature; // Deleting from current selection map.
+            }
+        }
+    );
 }
 
 CrawlingStats.prototype.drawCrawlStatChart = function() {

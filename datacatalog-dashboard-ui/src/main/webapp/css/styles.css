@@ -232,28 +232,112 @@ body, html {
     z-index: 1400;
 }
 
-#crawling-stat {
-    position: absolute;
+#sidebar{
     bottom: 50px;
-    right: 5px;
+    left: 5px;
+    position: absolute;
+}
+
+#crawling-stat {
     background-color: #000000;
     opacity: 0.7;
     z-index: 1400;
     background-color: #566D7E;
     border-radius: 3px 3px 3px 3px;
-    display: none;
+    width: 260px;
+    position: absolute;
+}
+
+#indexing-stat{
+    position: absolute;
+    bottom: 0;
+    font-family: 'Gill Sans', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: #FFFFCC;
+    margin: 0px;
+    padding: 5px;
+    letter-spacing: 0.15em;
+    background-color: #000000;
+    opacity: 0.7;
+    z-index: 1400;
+    background-color: #566D7E;
+    border-radius: 3px 3px 3px 3px;
+    width: 250px;
 }
 
 #crawling-stat p {
     font-family: 'Gill Sans', Helvetica, Arial, sans-serif;
-    font-size: 12px;
-    font-weight: lighter;
+    font-size: 15px;
+    font-weight: normal;
     color: #ffffff;
     margin: 0px;
     padding: 5px;
     letter-spacing: 0.15em;
     background-color: #000000;
     border-radius: 3px 3px 0 0;
+
+}
+
+#data-products p{
+    font-family: 'Gill Sans', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: #FFFFCC;
+    margin: 0px;
+    padding: 5px;
+    letter-spacing: 0.15em;
+    background-color: transparent;
+    border-radius: 0 0 0 0;
+}
+
+#data-products ul{
+    font-family: 'Gill Sans', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    color: #FFF;
+    padding: 5px;
+    list-style-type: square;
+    list-style-position: inside;
+    margin-left: 10;
+	padding-left: 1em;
+    padding-top: 0;
+	text-indent: -1em;
+}
+
+#data-products ul li{
+    padding-bottom: 2px;
+    margin-left: 10px;
+}
+
+#collection-stat p{
+    font-family: 'Gill Sans', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: #FFFFCC;
+    margin: 0px;
+    padding: 5px;
+    letter-spacing: 0.15em;
+    background-color: transparent;
+    border-radius: 0 0 0 0;
+}
+
+#collection-stat ul{
+    font-family: 'Gill Sans', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    color: #FFF;
+    padding: 5px;
+    list-style-type: square;
+    list-style-position: inside;
+    margin-left: 10;
+	padding-left: 1em;
+    padding-top: 0;
+	text-indent: -1em;
+}
+
+#collection-stat ul li{
+    padding-bottom: 2px;
+    margin-left: 10px;
 }
 
 #crawl-stat-chart {
@@ -277,7 +361,7 @@ body, html {
     padding: 3px;
     font-weight: lighter;
     letter-spacing: 0.15em;
-    float:right;
+    float: right;
     margin-right: 5px;
 }
 
@@ -302,3 +386,4 @@ body, html {
 #crawl-stat-chart {
     padding: 3px;
 }
+

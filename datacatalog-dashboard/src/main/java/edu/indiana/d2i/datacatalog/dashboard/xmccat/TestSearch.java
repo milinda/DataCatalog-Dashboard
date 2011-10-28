@@ -21,9 +21,12 @@ package edu.indiana.d2i.datacatalog.dashboard.xmccat;
 import edu.indiana.dde.catalog.catalogclient.CatalogServiceStub;
 import edu.indiana.dde.metadata.catalog.domain.CatalogAggregationType;
 import edu.indiana.dde.metadata.catalog.types.*;
+import org.apache.xmlbeans.XmlString;
 
 import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.xml.namespace.QName;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,6 +43,7 @@ public class TestSearch {
     public static final QName HEADER_QNAME = QName.valueOf(HEADER_DN_NAMESPACE + HEADER_DN_NAME);
 
     public static final String hostName = "coffeetree.cs.indiana.edu";
+    //public static final String hostName = "localhost";
     public static final String port = "10081";
     public static final String delivery = "DIRECT";
     public static final String dn = "public";
@@ -74,16 +78,62 @@ public class TestSearch {
             QueryResultFormatType resultFormatType = request.addNewQueryResultFormat();
             resultFormatType.setCount(0);
             resultFormatType.setOffset(0);
-            resultFormatType.setHierarchyFilter(HierarchyFilterType.SUBTREE);
-            resultFormatType.setContentFilter(ContentFilterType.FULL_SCHEMA);
+            resultFormatType.setHierarchyFilter(HierarchyFilterType.TARGET);
+            resultFormatType.setContentFilter(ContentFilterType.ID_ONLY);
+
             resultFormatType.setResultDeliveryMethod(CatalogDeliveryType.DIRECT);
             resultFormatType.setErrorDeliveryMethod(CatalogDeliveryType.DIRECT);
 
             QueryResponseDocument responseDocument = stub.allWorkspaceQuery(requestDocument);
-            System.out.println(responseDocument.toString());
+
+            FileWriter fstream = new FileWriter("out.txt");
+            BufferedWriter out = new BufferedWriter(fstream);
+            out.write(responseDocument.toString());
+            out.close();
+            //System.out.println(responseDocument.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void getAvailableDataProducts() {
+        try {
+            CatalogServiceStub stub = getStub(hostName, port, dn);
+
+            ContextQueryRequestDocument contextQueryRequestDocument =
+                    ContextQueryRequestDocument.Factory.newInstance();
+            ContextQueryRequestDocument.ContextQueryRequest contextQueryRequest = contextQueryRequestDocument.addNewContextQueryRequest();
+            contextQueryRequest.setQueryTarget(getAvailableDataProductsTargetDocument());
+
+            QueryResultFormatType resultFormat = QueryResultFormatType.Factory.newInstance();
+            resultFormat.setCount(0);
+            resultFormat.setOffset(0);
+
+            resultFormat.setHierarchyFilter(HierarchyFilterType.TARGET);
+            resultFormat.setContentFilter(ContentFilterType.ID_ONLY);
+
+            resultFormat.setResultDeliveryMethod(CatalogDeliveryType.DIRECT);
+            resultFormat.setErrorDeliveryMethod(CatalogDeliveryType.DIRECT);
+
+            contextQueryRequest.setQueryResultFormat(resultFormat);
+
+            System.out.println(contextQueryRequestDocument.toString());
+            QueryResponseDocument response = stub.query(contextQueryRequestDocument);
+
+            System.out.println(response.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public QueryObjectType getAvailableDataProductsTargetDocument(){
+        QueryTargetDocument queryTargetDocument = QueryTargetDocument.Factory.newInstance();
+
+        QueryObjectType queryObject = queryTargetDocument.addNewQueryTarget();
+        queryObject.setAggrType(CatalogAggregationType.DATAPRODUCT);
+
+        return queryTargetDocument.getQueryTarget();
     }
 
     public void testContextQuery() {
@@ -99,7 +149,7 @@ public class TestSearch {
             resultFormatType.setCount(10);
 
             resultFormatType.setHierarchyFilter(HierarchyFilterType.CHILDREN);
-            resultFormatType.setContentFilter(ContentFilterType.FULL_SCHEMA);
+            resultFormatType.setContentFilter(ContentFilterType.ID_ONLY);
 
             resultFormatType.setResultDeliveryMethod(CatalogDeliveryType.DIRECT);
             resultFormatType.setErrorDeliveryMethod(CatalogDeliveryType.DIRECT);
@@ -117,12 +167,12 @@ public class TestSearch {
     }
 
     private QueryTargetDocument getSearchNameTarget() throws ParseException {
-         QueryTargetDocument queryTargetDocument = QueryTargetDocument.Factory.newInstance();
+        QueryTargetDocument queryTargetDocument = QueryTargetDocument.Factory.newInstance();
 
         QueryObjectType queryObjectType = queryTargetDocument.addNewQueryTarget();
         queryObjectType.setAggrType(CatalogAggregationType.COLLECTION);
 
-        SimpleDateFormat formatter  = new SimpleDateFormat("yyyy/mm/dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/mm/dd");
 
         Calendar end = Calendar.getInstance();
         end.setTime(formatter.parse("2011/11/22"));
@@ -145,7 +195,7 @@ public class TestSearch {
         QueryObjectType queryObjectType = queryTargetDocument.addNewQueryTarget();
         queryObjectType.setAggrType(CatalogAggregationType.FILE);
 
-        SimpleDateFormat formatter  = new SimpleDateFormat("yyyy/mm/dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/mm/dd");
 
         Calendar end = Calendar.getInstance();
         end.setTime(formatter.parse("2011/11/21"));
@@ -155,6 +205,7 @@ public class TestSearch {
 
         //queryObjectType.setCreateDateEnd(end);
         //queryObjectType.setCreateDateStart(start);
+
 
         QueryPropertyType queryPropertyType = queryObjectType.addNewQueryProperty();
         queryPropertyType.setName("bounding");
