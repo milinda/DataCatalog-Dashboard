@@ -51,7 +51,9 @@ public class TestSearch {
     public static void main(String[] args) {
         TestSearch ts = new TestSearch();
         ts.checkStatus();
-        ts.testContextQuery();
+        //ts.testContextQuery();
+        //ts.getObject();
+        ts.getAvailableDataProducts();
     }
 
     public void checkStatus() {
@@ -127,11 +129,52 @@ public class TestSearch {
         }
     }
 
+    public void getObject(){
+        try{
+            CatalogServiceStub stub = getStub(hostName, port, dn);
+            ObjectIdQueryRequestDocument objectIdQueryRequestDocument = ObjectIdQueryRequestDocument.Factory.newInstance();
+            ObjectIdQueryRequestDocument.ObjectIdQueryRequest request = objectIdQueryRequestDocument.addNewObjectIdQueryRequest();
+            request.addObjectId("NWS/NEXRAD2/KABR");
+
+            QueryResultFormatType resultFormat = request.addNewQueryResultFormat();
+            resultFormat.setCount(0);
+            resultFormat.setOffset(0);
+            resultFormat.setHierarchyFilter(HierarchyFilterType.TARGET);
+            resultFormat.setContentFilter(ContentFilterType.FULL_SCHEMA);
+            resultFormat.setResultDeliveryMethod(CatalogDeliveryType.DIRECT);
+            resultFormat.setErrorDeliveryMethod(CatalogDeliveryType.DIRECT);
+
+
+            QueryResponseDocument  response = stub.objectIdQuery(objectIdQueryRequestDocument);
+            System.out.println(response.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+     private void setQueryResultFormat(ObjectIdQueryRequestDocument.ObjectIdQueryRequest request)
+       {
+               QueryResultFormatType resultFormat = request.addNewQueryResultFormat();
+               resultFormat.setOffset(0);
+               resultFormat.setCount(0);
+               resultFormat.setHierarchyFilter(HierarchyFilterType.CHILDREN);
+
+               ElementFilterType element = resultFormat.addNewElementFilter();
+               element.setPropertyName("citation");
+               element.setPropertySource("LEAD");
+               element.setElementName("title");
+               element.setElementSource("LEAD");
+               element.setElementFilter("title");
+
+               resultFormat.setResultDeliveryMethod(CatalogDeliveryType.DIRECT);
+               resultFormat.setErrorDeliveryMethod(CatalogDeliveryType.DIRECT);
+       }
+
     public QueryObjectType getAvailableDataProductsTargetDocument(){
         QueryTargetDocument queryTargetDocument = QueryTargetDocument.Factory.newInstance();
 
         QueryObjectType queryObject = queryTargetDocument.addNewQueryTarget();
-        queryObject.setAggrType(CatalogAggregationType.DATAPRODUCT);
+        //queryObject.setAggrType(CatalogAggregationType.DATAPRODUCT);
 
         return queryTargetDocument.getQueryTarget();
     }
@@ -146,9 +189,9 @@ public class TestSearch {
 
             QueryResultFormatType resultFormatType = QueryResultFormatType.Factory.newInstance();
             resultFormatType.setOffset(0);
-            resultFormatType.setCount(10);
+            resultFormatType.setCount(0);
 
-            resultFormatType.setHierarchyFilter(HierarchyFilterType.CHILDREN);
+            resultFormatType.setHierarchyFilter(HierarchyFilterType.TARGET);
             resultFormatType.setContentFilter(ContentFilterType.ID_ONLY);
 
             resultFormatType.setResultDeliveryMethod(CatalogDeliveryType.DIRECT);
@@ -193,7 +236,7 @@ public class TestSearch {
         QueryTargetDocument queryTargetDocument = QueryTargetDocument.Factory.newInstance();
 
         QueryObjectType queryObjectType = queryTargetDocument.addNewQueryTarget();
-        queryObjectType.setAggrType(CatalogAggregationType.FILE);
+        queryObjectType.setAggrType(CatalogAggregationType.COLLECTION);
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/mm/dd");
 
@@ -208,7 +251,7 @@ public class TestSearch {
 
 
         QueryPropertyType queryPropertyType = queryObjectType.addNewQueryProperty();
-        queryPropertyType.setName("bounding");
+        queryPropertyType.setName("spatialBounds");
         queryPropertyType.setSource("LEAD");
         QueryElementType queryElementType = queryPropertyType.addNewQueryElement();
         queryElementType.setName("boundingBox");
@@ -216,20 +259,27 @@ public class TestSearch {
         QueryPolygonElementType queryPolygonElementType = queryElementType.addNewQueryPolygonElement();
 
         QueryXyPointType xyPoint = queryPolygonElementType.addNewXyPoint();
-        xyPoint.setXPos(BigDecimal.valueOf(-120));
-        xyPoint.setYPos(BigDecimal.valueOf(51));
+        xyPoint.setXPos(BigDecimal.valueOf(-100.4));
+        xyPoint.setYPos(BigDecimal.valueOf(48.846000000000004));
 
         xyPoint = queryPolygonElementType.addNewXyPoint();
-        xyPoint.setXPos(BigDecimal.valueOf(-125));
-        xyPoint.setYPos(BigDecimal.valueOf(51));
+        xyPoint.setXPos(BigDecimal.valueOf(-100.4));
+        xyPoint.setYPos(BigDecimal.valueOf(43.45));
 
         xyPoint = queryPolygonElementType.addNewXyPoint();
-        xyPoint.setXPos(BigDecimal.valueOf(-125));
-        xyPoint.setYPos(BigDecimal.valueOf(42));
+        xyPoint.setXPos(BigDecimal.valueOf(-96.256));
+        xyPoint.setYPos(BigDecimal.valueOf(43.45));
 
         xyPoint = queryPolygonElementType.addNewXyPoint();
-        xyPoint.setXPos(BigDecimal.valueOf(-120));
-        xyPoint.setYPos(BigDecimal.valueOf(42));
+        xyPoint.setXPos(BigDecimal.valueOf(-96.256));
+        xyPoint.setYPos(BigDecimal.valueOf(48.846000000000004));
+
+xyPoint = queryPolygonElementType.addNewXyPoint();
+        xyPoint.setXPos(BigDecimal.valueOf(-100.4));
+        xyPoint.setYPos(BigDecimal.valueOf(48.846000000000004));
+
+
+
 
         queryPolygonElementType.setSpatialComparison(SpatialComparisonType.CONTAINS);
 

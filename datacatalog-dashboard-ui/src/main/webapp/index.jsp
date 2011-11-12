@@ -9,16 +9,15 @@
 
         <div id="data-products">
             <p>Data Products</p>
-            <ul>
-                <li>NAM</li>
-                <li>NEXTRAD Level II</li>
+            <ul id="data-products-list">
+
             </ul>
         </div>
         <div id="collection-stat">
             <p>Content</p>
             <ul>
-                <li>14 Collections</li>
-                <li>2543 Files</li>
+                <li id="summary-collections">0 Collections</li>
+                <li id="summary-files">0 Files</li>
             </ul>
         </div>
     </div>
@@ -31,6 +30,9 @@
 <div id="tools">
 
 </div>
+<div id="dialog" title="Crawling History">
+	<div id="time-line" style=" border: 1px solid #aaa"></div>
+</div>
 <script type="text/javascript">
 
     var dashboard = new Dashboard("map");
@@ -38,8 +40,30 @@
     var toolBar = new ToolBar("tools");
     var crawlingStats = new CrawlingStats(dashboard, toolBar);
 
+    function updateCurrentState(){
+        $.get("api/perflog/currentstate", function(data){
+            $("#indexing-stat").html("<p>" + data + "</p>");
+            dashboard.initSidebar();
+        });
+
+    }
+
+    function updateSummary(){
+        $.get("api/dataproducts/summary", function(data){
+            $("#summary-collections").html(data.collections + " Collections");
+            $("#summary-files").html(data.files + " Files");
+        })
+    }
+
+    updateCurrentState();
+    updateSummary();
+    setInterval(updateCurrentState, 60000);
+    setInterval(updateSummary, 300000);
 </script>
 
+<div id="radar-dialog-parent">
+
+</div>
 </body>
 
 <%@ include file="includes/footer.html" %>

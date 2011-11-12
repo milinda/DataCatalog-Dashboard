@@ -15,6 +15,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.6</version>
+        </dependency>
+        <dependency>
             <groupId>edu.indiana.d2i</groupId>
             <artifactId>datacatalog-dashboard</artifactId>
             <version>1.0-SNAPSHOT</version>

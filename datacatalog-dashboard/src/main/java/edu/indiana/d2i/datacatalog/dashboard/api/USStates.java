@@ -18,6 +18,8 @@
 
 package edu.indiana.d2i.datacatalog.dashboard.api;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.w3c.dom.Document;
@@ -26,6 +28,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,31 +41,39 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class USStates extends HttpServlet {
+    private static Log log = LogFactory.getLog(USStates.class);
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response){
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        // TODO: Cache the states.
         response.setContentType("application/json");
 
-        try{
+        try {
             String statesPath = getServletContext().getRealPath("/WEB-INF/resources/states.xml");
-            System.out.println(statesPath);
             response.getWriter().write(getStates(statesPath).toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Error while reading states file.", e);
+            throw e;
+        } catch (ParserConfigurationException e) {
+            log.error("Error while reading states file.", e);
+            throw new ServletException(e);
+        } catch (SAXException e) {
+            log.error("Error while reading states file.", e);
+            throw new ServletException(e);
         }
     }
 
-    public static String getStates(String statesFilePath){
+    public static String getStates(String statesFilePath) throws ParserConfigurationException, IOException, SAXException {
         JSONObject statesFeatureCollection = new JSONObject();
         statesFeatureCollection.put("type", "FeatureCollection");
         JSONArray features = new JSONArray();
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        try{
+        try {
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document dom = documentBuilder.parse(new FileInputStream(new File(statesFilePath)));
             Element docElement = dom.getDocumentElement();
             NodeList states = docElement.getElementsByTagName("state");
-            for(int i = 0; i < states.getLength(); i++){
+            for (int i = 0; i < states.getLength(); i++) {
                 Node state = states.item(i);
                 JSONObject stateObj = new JSONObject();
                 stateObj.put("type", "Feature");
@@ -70,14 +81,14 @@ public class USStates extends HttpServlet {
                 geometry.put("type", "Polygon");
                 JSONArray coordinates = new JSONArray();
                 JSONArray coordinateSub = new JSONArray();
-                NodeList points = ((Element)state).getElementsByTagName("point");
-                for(int j = 0; j < points.getLength(); j++){
+                NodeList points = ((Element) state).getElementsByTagName("point");
+                for (int j = 0; j < points.getLength(); j++) {
                     Node point = points.item(j);
                     JSONArray pointObj = new JSONArray();
-                    float lat = Float.parseFloat(((Element)point).getAttribute("lat"));
-                    float lng = Float.parseFloat(((Element)point).getAttribute("lng"));
+                    float lat = Float.parseFloat(((Element) point).getAttribute("lat"));
+                    float lng = Float.parseFloat(((Element) point).getAttribute("lng"));
                     double trLng = lng * 20037508.34 / 180;
-                    double trLat = Math.log(Math.tan((90 + lat) * Math.PI / 360))/(Math.PI / 180);
+                    double trLat = Math.log(Math.tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180);
                     pointObj.add(lng);
                     pointObj.add(lat);
                     coordinateSub.add(pointObj);
@@ -86,7 +97,7 @@ public class USStates extends HttpServlet {
                 coordinates.add(coordinateSub);
                 stateObj.put("geometry", geometry);
                 JSONObject name = new JSONObject();
-                name.put("Name", ((Element)state).getAttribute("name"));
+                name.put("Name", ((Element) state).getAttribute("name"));
                 name.put("colour", "#FFF901");
                 stateObj.put("properties", name);
                 features.add(stateObj);
@@ -94,15 +105,18 @@ public class USStates extends HttpServlet {
             statesFeatureCollection.put("features", features);
             return statesFeatureCollection.toJSONString();
         } catch (ParserConfigurationException e) {
-            e.printStackTrace();
+            log.error("Error while processing states.xml.", e);
+            throw e;
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            log.error("Error while processing states.xml.", e);
+            throw e;
         } catch (SAXException e) {
-            e.printStackTrace();
+            log.error("Error while processing states.xml.", e);
+            throw e;
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Error while processing states.xml.", e);
+            throw e;
         }
-        return "";
     }
 
 }

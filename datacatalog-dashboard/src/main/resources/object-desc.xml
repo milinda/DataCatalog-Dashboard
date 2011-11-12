@@ -1,0 +1,109 @@
+<queryResponse timestamp="1320451773557" xmlns="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/types" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+  <catalogOperationStatus>
+    <status>OPERATION_SUCCESSFUL</status>
+  </catalogOperationStatus>
+  <queryResponseSet xmlns:xmc="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/types" xmlns:cat="http://www.cs.indiana.edu/dde/namespaces/2008/02/catalog/domain">
+    <cat:objectResponse objectClass="COLLECTION" objectId="NWS/NEXRAD2/KABR">
+      <lead:LEADresource xmlns:lead="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:le="http://schemas.leadproject.org/2007/01/lms/leadelements" xmlns:fgdc="http://schemas.leadproject.org/2007/01/lms/fgdc">
+        <resourceID xmlns="http://schemas.leadproject.org/2007/01/lms/leadelements" xmlns:fc="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:ld="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">NWS/NEXRAD2/KABR</resourceID>
+        <lead:data>
+          <lead:idinfo>
+            <citation xmlns="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fc="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:ld="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+              <origin xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc">DOC/NOAA/NWS</origin>
+              <pubdate xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc">Unknown</pubdate>
+              <title xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc">KABR</title>
+              <pubinfo xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc">
+                <pubplace>Boulder, CO, USA</pubplace>
+                <publish>UCAR/UNIDATA</publish>
+              </pubinfo>
+            </citation>
+            <descript xmlns="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fc="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:ld="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+              <abstract xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc">NEXRAD Level II Radar WSR-88D. These are the "raw" fields: Reflectivity, Velocity, Spectrum Width. Sent every 5 minutes.</abstract>
+              <purpose xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc">Scientific research and education</purpose>
+            </descript>
+            <status xmlns="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fc="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:ld="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+              <progress xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc">Complete</progress>
+              <update xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc">Continually</update>
+            </status>
+            <accconst xmlns="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fc="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:ld="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">none</accconst>
+            <useconst xmlns="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fc="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:ld="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">none</useconst>
+            <lead:keywords>
+              <theme xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:fc="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:ld="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+                <themekt>leadproject.org</themekt>
+                <themekey>LEAD</themekey>
+              </theme>
+            </lead:keywords>
+          </lead:idinfo>
+          <metainfo xmlns="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fc="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:ld="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+            <metd xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc">20111026</metd>
+            <metstdn xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc">LEAD Profile of FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+            <metstdv xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc">FGDC-STD-001.LEAD_1_2-2005</metstdv>
+          </metainfo>
+          <lead:geospatial>
+            <lead:idinfo>
+              <timeperd xmlns="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fc="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:ld="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+                <timeinfo xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc">
+                  <rngdatesInd xmlns="http://schemas.leadproject.org/2007/01/lms/leadelements">
+                    <end>now</end>
+                    <duration>P5D</duration>
+                  </rngdatesInd>
+                </timeinfo>
+                <current xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc">unknown</current>
+              </timeperd>
+              <lead:spdom>
+                <bounding xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:fc="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:ld="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+                  <westbc>-100.4</westbc>
+                  <eastbc>-96.256</eastbc>
+                  <northbc>48.846000000000004</northbc>
+                  <southbc>43.45</southbc>
+                </bounding>
+              </lead:spdom>
+            </lead:idinfo>
+          </lead:geospatial>
+          <lead:eainfo>
+            <detailed xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:fc="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:ld="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+              <enttyp>
+                <enttypl>grid</enttypl>
+                <enttypds>LEAD</enttypds>
+              </enttyp>
+              <attr>
+                <attrlabl>dx</attrlabl>
+                <attrdefs>LEAD</attrdefs>
+                <attrv xmlns="http://schemas.leadproject.org/2007/01/lms/leadelements"/>
+              </attr>
+              <attr>
+                <attrlabl>dy</attrlabl>
+                <attrdefs>LEAD</attrdefs>
+                <attrv xmlns="http://schemas.leadproject.org/2007/01/lms/leadelements"/>
+              </attr>
+            </detailed>
+          </lead:eainfo>
+          <lead:distinfo>
+            <fgdc:distrib>
+              <cntinfo xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:fc="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:ld="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+                <cntorgp>
+                  <cntorg>UCAR/UNIDATA</cntorg>
+                </cntorgp>
+                <cntaddr>
+                  <addrtype>mailing</addrtype>
+                  <city>Boulder</city>
+                  <state>CO</state>
+                  <postal>80307</postal>
+                  <country>USA</country>
+                </cntaddr>
+                <cntvoice>+1-303-497-8643</cntvoice>
+              </cntinfo>
+            </fgdc:distrib>
+            <stdorder xmlns="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:fc="http://schemas.leadproject.org/2007/01/lms/fgdc" xmlns:ld="http://schemas.leadproject.org/2007/01/lms/lead" xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+              <digform>
+                <digtinfo>
+                  <formname>NEXRAD2</formname>
+                </digtinfo>
+              </digform>
+            </stdorder>
+          </lead:distinfo>
+        </lead:data>
+      </lead:LEADresource>
+    </cat:objectResponse>
+  </queryResponseSet>
+</queryResponse>

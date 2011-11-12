@@ -26,21 +26,37 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Test {
     public static void main(String[] args) {
-        ClientConfig config = new DefaultClientConfig();
-        Client client = Client.create(config);
-        WebResource service = client.resource(getBaseURI());
-        // Get XML
-        System.out.println(service.path("hello").path("todo").accept(
-                MediaType.TEXT_XML).get(String.class));
-        // Get XML for application
-        System.out.println(service.path("hello").path("todo").accept(
-                MediaType.APPLICATION_JSON).get(String.class));
-        // Get JSON for application
-        System.out.println(service.path("hello").path("todo").accept(
-                MediaType.APPLICATION_XML).get(String.class));
+        String s = "</br>\n" +
+                "Longitude:  -108.470001\n" +
+                "</font></p>";
+        Pattern lonPattern = Pattern.compile("Longitude:\\s*(\\-?\\d+\\.\\d+).*");
+        Matcher m = lonPattern.matcher(s);
+        while(m.find()){
+            System.out.println(m.group(1));
+        }
+
+        String p = "24 Oct 2011 03:27:51|Parser|Thredds|iu_thredds_nexradII|NWS/NEXRAD2|NWS/NEXRAD2/KABR|NWS/NEXRAD2/KABR/20111023201609.bz2|793997000|745666000";
+        String[] ele = p.split("\\|");
+        for(String e : ele){
+            System.out.println(e);
+        }
+//        ClientConfig config = new DefaultClientConfig();
+//        Client client = Client.create(config);
+//        WebResource service = client.resource(getBaseURI());
+//        // Get XML
+//        System.out.println(service.path("hello").path("todo").accept(
+//                MediaType.TEXT_XML).get(String.class));
+//        // Get XML for application
+//        System.out.println(service.path("hello").path("todo").accept(
+//                MediaType.APPLICATION_JSON).get(String.class));
+//        // Get JSON for application
+//        System.out.println(service.path("hello").path("todo").accept(
+//                MediaType.APPLICATION_XML).get(String.class));
     }
 
     private static URI getBaseURI() {

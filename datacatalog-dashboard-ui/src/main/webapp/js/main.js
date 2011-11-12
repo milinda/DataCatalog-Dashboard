@@ -21,6 +21,12 @@ function Dashboard(container) {
             )
         ]
     }
+
+    this.radarLayer = {};
+
+    this.radarFeatures = new Array();
+
+
 }
 
 Dashboard.prototype.getMap = function() {
@@ -45,10 +51,40 @@ Dashboard.prototype.initialize = function() {
     point.transform(projection, this.map.getProjectionObject());
 
     this.map.setCenter(point, 4);
-
+    //this.map.addLayer(this.radarLayer);
     this.initSidebar();
     //this.initToolBar();
     this.testStateSelection();
+    this.getDataProducts();
+}
+
+Dashboard.prototype.getDataProducts = function() {
+    $.get("api/dataproducts", function(data) {
+        for (index in data.dataProducts) {
+            function shortenName(str) {
+                if (str.length > 25) {
+                    str = str.substr(0, 24) + "...";
+                }
+
+                return str;
+            }
+
+            var dpName = data.dataProducts[index].name;
+            dpName = shortenName(dpName);
+            var re = new RegExp("/", "g");
+            var id = dpName.replace(re, "_");
+            $("#data-products-list").append("<li id='" + id + "' title='" + dpName + "'>" + dpName + "</li>");
+            $("#" + id).tooltip({
+                position: "center right",
+                offset: [0, 20],
+                effect:"slide",
+                opacity:0.6,
+                onShow: function() {
+                    $(".tooltip").html("<p>Figure out a hack.</p>");
+                }
+            });
+        }
+    }, "json");
 }
 
 
@@ -215,6 +251,112 @@ Dashboard.prototype.testVectorLayer = function() {
     select.activate();
 }
 
+Dashboard.prototype.addRadar = function(geoJSONObject, layers, len) {
+
+    this.radarFeatures.push(geoJSONObject);
+    var reader = new OpenLayers.Format.GeoJSON({
+        'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+        'externalProjection': new OpenLayers.Projection("EPSG:4326")
+    });
+
+//    function makeid() {
+//        var text = "";
+//        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+//
+//        for (var i = 0; i < 5; i++)
+//            text += possible.charAt(Math.floor(Math.random() * possible.length));
+//
+//        return text;
+//    }
+//
+//    var layerName = "radars-" + makeid();
+//
+//    var radarLayer = new OpenLayers.Layer.Vector(layerName, {
+//        styleMap: new OpenLayers.StyleMap({
+//            externalGraphic: "img/radar-2.png",
+//            graphicOpacity: 1.0,
+//            graphicWith: 16,
+//            graphicHeight: 26,
+//            graphicYOffset: -26
+//        })
+//    });
+
+    //layers.push(radarLayer);
+    //this.radarLayer.addFeatures(reader.read(geoJSONObject));
+
+    function onSelectFeatureFunction(feature) {
+        var b = feature.geometry.bounds;
+        var centerPixel = this.map.getPixelFromLonLat(b.getCenterLonLat());
+
+        $("#radar-dialog-parent").html("<div id='dialog-radar' style='padding:5px;display: none;font-size: 11px;font-family: Verdana, sans-serif;' title='Data Catalog Dashboard'><p>" +
+            feature.data.Name +
+            "</p><div id='chart' style='width: 350px; height: 200px;'></div></div>");
+        $("#dialog-radar").dialog({
+            autoOpen: false,
+            show: "blind",
+            hide: "blind",
+            position: [centerPixel.x + 10, centerPixel.y + 5],
+            close: function(event, ui) {
+                $(this).dialog('destroy').remove();
+            }
+        });
+        $("#dialog-radar").dialog("open");
+    }
+
+//    var selectControl = new OpenLayers.Control.SelectFeature(radarLayer, {
+//        autoActivate: true,
+//        onSelect: onSelectFeatureFunction
+//    });
+
+    //this.map.addLayer(radarLayer);
+    //this.map.addControl(selectControl);
+    //selectControl.activate();
+    if (len == this.radarFeatures.length) {
+        var rlayer = this.map.getLayersByName("Radars");
+        if (rlayer && rlayer.length > 0) {
+            this.map.removeLayer(rlayer);
+        }
+        alert(this.radarFeatures.length);
+        for (var index in this.radarFeatures) {
+            var reader = new OpenLayers.Format.GeoJSON({
+                'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+                'externalProjection': new OpenLayers.Projection("EPSG:4326")
+            });
+            this.radarLayer.addFeatures(reader.read(this.radarFeatures[index]));
+        }
+
+        this.map.addLayer(this.radarLayer);
+
+        var selectControl = new OpenLayers.Control.SelectFeature(this.radarLayer, {
+            autoActivate: true,
+            onSelect: onSelectFeatureFunction
+        });
+        this.map.addControl(selectControl);
+        selectControl.activate();
+    }
+
+}
+
+Dashboard.prototype.startAddingRadars = function() {
+
+    this.radarLayer = new OpenLayers.Layer.Vector("Radars", {
+        styleMap: new OpenLayers.StyleMap({
+            externalGraphic: "img/radar-2.png",
+            graphicOpacity: 1.0,
+            graphicWith: 16,
+            graphicHeight: 26,
+            graphicYOffset: -26
+        })
+    });
+    this.radarFeatures = new Array();
+}
+
+Dashboard.prototype.doneAddingRadars = function() {
+    alert("Done adding radars");
+    alert(this.radarFeatures.length);
+
+}
+
 
 Dashboard.prototype.addFeatures = function() {
     var db = this;
@@ -379,16 +521,16 @@ Dashboard.prototype.testStateSelection = function() {
     polyOptions = {sides: 4};
     polygonControl = new OpenLayers.Control.DrawFeature(polygonLayer,
         OpenLayers.Handler.RegularPolygon,
-        {handlerOptions: polyOptions, featureAdded: function(feature){
+        {handlerOptions: polyOptions, featureAdded: function(feature) {
             var layer = feature.layer;
-            for (index in layer.features){
-                if(layer.features[index].id != feature.id){
+            for (index in layer.features) {
+                if (layer.features[index].id != feature.id) {
                     layer.removeFeatures([layer.features[index]]);
                 }
             }
             dboard.currentSelectedFeatures[feature.id] = feature;
-            for(index in dboard.currentSelectedFeatures){
-                if(dboard.currentSelectedFeatures[index].id != feature.id){
+            for (index in dboard.currentSelectedFeatures) {
+                if (dboard.currentSelectedFeatures[index].id != feature.id) {
                     delete dboard.currentSelectedFeatures[index];
                 }
             }
@@ -397,7 +539,7 @@ Dashboard.prototype.testStateSelection = function() {
         }});
 
     var selectPoly = new OpenLayers.Control.SelectFeature(polygonLayer, {hover: false, clickout: true, toggle: false});
-            this.map.addControl(selectPoly);
+    this.map.addControl(selectPoly);
 
     this.map.addControl(polygonControl);
     this.map.addControl(selectPoly);

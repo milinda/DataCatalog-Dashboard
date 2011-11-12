@@ -18,6 +18,11 @@
         <servlet-class>edu.indiana.d2i.datacatalog.dashboard.api.USStates</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>NEXRAD</servlet-name>
+        <servlet-class>edu.indiana.d2i.datacatalog.dashboard.api.NEXRADRadars</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Jersey REST Service</servlet-name>
         <url-pattern>/api/*</url-pattern>
@@ -25,5 +30,9 @@
     <servlet-mapping>
         <servlet-name>US States</servlet-name>
         <url-pattern>/states/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NEXRAD</servlet-name>
+        <url-pattern>/nexradstation</url-pattern>
     </servlet-mapping>
 </web-app>

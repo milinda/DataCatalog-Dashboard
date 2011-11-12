@@ -15,6 +15,11 @@
             <version>1.9.1</version>
         </dependency>
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.6</version>
+        </dependency>
+        <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-client</artifactId>
             <version>1.9.1</version>
@@ -40,9 +45,9 @@
             <version>1.2.6</version>
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>lead</groupId>-->
-            <!--<artifactId>lead-xmccat-domain-metadata</artifactId>-->
-            <!--<version>1.2.1</version>-->
+        <!--<groupId>lead</groupId>-->
+        <!--<artifactId>lead-xmccat-domain-metadata</artifactId>-->
+        <!--<version>1.2.1</version>-->
         <!--</dependency>-->
         <dependency>
             <groupId>lead</groupId>
@@ -218,6 +223,16 @@
             <version>2.3.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.mapfish.geo</groupId>
+            <artifactId>mapfish-geo-lib</artifactId>
+            <version>1.2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>de.micromata.jak</groupId>
+            <artifactId>JavaAPIforKml</artifactId>
+            <version>2.2.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -285,6 +300,15 @@
             </releases>
             <snapshots>
                 <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Maven 2 Repository</name>
+            <url>http://download.java.net/maven/2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>true</enabled>
             </snapshots>
         </repository>
     </repositories>

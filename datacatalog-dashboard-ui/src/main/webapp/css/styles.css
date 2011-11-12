@@ -307,6 +307,7 @@ body, html {
 #data-products ul li{
     padding-bottom: 2px;
     margin-left: 10px;
+    margin-top:3px;
 }
 
 #collection-stat p{
@@ -383,7 +384,26 @@ body, html {
     float: left;
 }
 
+
+.tooltip {
+	display:none;
+	font-size:12px;
+	padding:6px;
+    z-index: 1500;
+    opacity: 0.6;
+    color: #FFFFCC;
+    background-color: #566D7E;
+    font-family: "Gill Sans", Helvetica, Arial, sans-serif;
+    border: 1px solid #FFFFCC;
+    border-radius: 3px 3px 3px 3px;
+}
+
+
 #crawl-stat-chart {
     padding: 3px;
 }
 
+.timeline-event-label{
+    font-size: 10px;
+    font-family: "Gill Sans", Helvetica, Arial, sans-serif;
+}
