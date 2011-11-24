@@ -1,6 +1,7 @@
 package edu.indiana.d2i.datacatalog.dashboard.api;
 
 import edu.indiana.d2i.datacatalog.dashboard.Constants;
+import edu.indiana.d2i.datacatalog.dashboard.api.beans.Collections;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.simple.JSONArray;
@@ -13,6 +14,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 @Path("/perflog")
@@ -61,15 +64,11 @@ public class PerformanceLog {
 
         if (dashboardProps.get(Constants.PROP_DATACAT_PERF_LOG) != null) {
             //String tail = tail2(new File(((String) dashboardProps.get(Constants.PROP_DATACAT_PERF_LOG)).trim()), 2);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            tail3(new File(((String) dashboardProps.get(Constants.PROP_DATACAT_PERF_LOG)).trim()), bos, 100);
-            String tail = bos.toString("utf-8");
-            if (tail != null) {
-                log.info(tail);
-                String[] tailElements = tail.split("\n");
-                for(String element : tailElements){
+            List<String> eventStrings = getCatalogerEvents();
+            if (eventStrings != null && eventStrings.size() > 0) {
+                for (String element : eventStrings) {
                     String[] items = element.split("\\|");
-                    events.add(createEvent(items[0], "In queue:" + items[1] + " processing data product " + items[4] + " of catalog:" + items[3]));
+                    events.add(createEvent(items[0], "Done processing catalog: " + items[3]));
                 }
                 crawlHistory.put("events", events);
                 return crawlHistory.toJSONString();
@@ -81,7 +80,7 @@ public class PerformanceLog {
         return "{'error': 'Cannot find performance log file in configuration.'}";
     }
 
-    private JSONObject createEvent(String date, String title){
+    private JSONObject createEvent(String date, String title) {
         JSONObject event = new JSONObject();
         event.put("start", date);
         event.put("title", title);
@@ -191,5 +190,56 @@ public class PerformanceLog {
         }
 
         writer.flush();
+    }
+
+    private List<String> getCatalogerEvents() throws IOException {
+        String dashboardConfFilePath = context.getRealPath("/WEB-INF/conf/dashboard-conf.properties");
+
+        Properties dashboardProps = new Properties();
+        dashboardProps.load(new FileInputStream(new File(dashboardConfFilePath)));
+
+        if (dashboardProps.get(Constants.PROP_DATACAT_PERF_LOG) != null) {
+            Runtime r = Runtime.getRuntime();
+
+            try {
+                /*
+                * Here we are executing the UNIX command ls for directory listing.
+                * The format returned is the long format which includes file
+                * information and permissions.
+                */
+                Process p = r.exec("grep Cataloger " + dashboardProps.get(Constants.PROP_DATACAT_PERF_LOG));
+                InputStream in = p.getInputStream();
+                BufferedInputStream buf = new BufferedInputStream(in);
+                InputStreamReader inread = new InputStreamReader(buf);
+                BufferedReader bufferedreader = new BufferedReader(inread);
+
+                // Read the ls output
+                List<String> matchingEvents = new ArrayList<String>();
+                String line;
+                while ((line = bufferedreader.readLine()) != null) {
+                    matchingEvents.add(line);
+                }
+                // Check for ls failure
+                try {
+                    if (p.waitFor() != 0) {
+                        log.info("exit value = " + p.exitValue());
+                    }
+                } catch (InterruptedException e) {
+                    log.error("Error executing grep on performance.log!",e);
+                } finally {
+                    // Close the InputStream
+                    bufferedreader.close();
+                    inread.close();
+                    buf.close();
+                    in.close();
+                }
+
+                return matchingEvents;
+            } catch (IOException e) {
+                log.error("Error executing grep on performance log!", e);
+            }
+        }
+
+        return java.util.Collections.emptyList();
     }
 }

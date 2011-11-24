@@ -50,7 +50,7 @@ CrawlingStats.prototype.addCrawlingStatsWidget = function() {
                     map.removeLayer(radarLayers[layerIndex]);
                 }
             }
-
+            $.blockUI({ message: '<h1 class="block"><img src="img/2.gif" /> Loading...</h1>' });
             for (var featureIndex in dboard.currentSelectedFeatures) {
                 var feature = dboard.currentSelectedFeatures[featureIndex];
                 var featureBounds = feature.geometry.getVertices();
@@ -59,6 +59,7 @@ CrawlingStats.prototype.addCrawlingStatsWidget = function() {
                     url: "api/dataproducts/inArea",
                     data: JSON.stringify(getPolygon(featureBounds)),
                     success: function(data) {
+                        $.unblockUI();
                         if (data) {
                             var collections = data.collections;
                             var layers = new Array();
@@ -68,17 +69,17 @@ CrawlingStats.prototype.addCrawlingStatsWidget = function() {
                                     $.get('nexradstation', {stationId: collections[item]}, function(stationDetails) {
                                         var featureCollection = {"type" : "FeatureCollection", "features": []};
                                         featureCollection["features"].push(stationDetails);
-                                        dboard.addRadar(featureCollection, layers ,collections.length);
+                                        dboard.addRadar(featureCollection, layers, collections.length);
                                     });
                                 }
                             } else {
                                 $.get('nexradstation', {stationId: collections[item]}, function(stationDetails) {
-                                     var featureCollection = {"type" : "FeatureCollection", "features": []};
+                                    var featureCollection = {"type" : "FeatureCollection", "features": []};
                                     featureCollection["features"].push(stationDetails);
                                     dboard.addRadar(featureCollection, layers);
                                 });
                             }
-                            dboard.doneAddingRadars();
+                            //dboard.doneAddingRadars();
                         } else {
                             alert("No data collections found in selected area.");
                         }
@@ -128,7 +129,7 @@ CrawlingStats.prototype.addCrawlingStatsWidget = function() {
                             eventSource:    eventSource,
                             width:          "70%",
                             date:           "Nov 11 2011 00:00:00 GMT",
-                            intervalUnit:   Timeline.DateTime.MINUTE,
+                            intervalUnit:   Timeline.DateTime.DAY,
                             intervalPixels: 100
                         }),
                         Timeline.createBandInfo({
@@ -136,7 +137,7 @@ CrawlingStats.prototype.addCrawlingStatsWidget = function() {
                             eventSource:    eventSource,
                             width:          "30%",
                             date:           "Nov 11 2011 00:00:00 GMT",
-                            intervalUnit:   Timeline.DateTime.DAY,
+                            intervalUnit:   Timeline.DateTime.MONTH,
                             intervalPixels: 200
                         })
                     ];
@@ -157,7 +158,17 @@ CrawlingStats.prototype.addCrawlingStatsWidget = function() {
                 }
             });
         }
-    )
+    );
+
+    this.toolBar.addButton({id: "remove-radars", label:"Clear Map"}).click(
+        function(e) {
+            e.preventDefault();
+            var rlayer = dboard.map.getLayersByName("Radars");
+            if (rlayer && rlayer.length > 0) {
+                dboard.map.removeLayer(rlayer[0]);
+            }
+        }
+    );
 }
 
 CrawlingStats.prototype.drawCrawlStatChart = function() {

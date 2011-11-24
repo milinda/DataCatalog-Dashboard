@@ -404,6 +404,11 @@ body, html {
 }
 
 .timeline-event-label{
-    font-size: 10px;
+    font-size: 12px;
     font-family: "Gill Sans", Helvetica, Arial, sans-serif;
+}
+
+.block{
+    font-family: "Gill Sans", Helvetica, Arial, sans-serif;
+    font-weight: bold;
 }

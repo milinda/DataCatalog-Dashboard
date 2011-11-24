@@ -2,6 +2,7 @@ package edu.indiana.d2i.datacatalog.dashboard.api;
 
 import edu.indiana.d2i.datacatalog.dashboard.Constants;
 import edu.indiana.d2i.datacatalog.dashboard.api.beans.*;
+import edu.indiana.d2i.datacatalog.dashboard.api.beans.Collection;
 import edu.indiana.d2i.datacatalog.dashboard.api.beans.Collections;
 import edu.indiana.d2i.datacatalog.dashboard.xmccat.XMCCatAPIWrapper;
 import org.apache.commons.logging.Log;
@@ -55,6 +56,23 @@ public class DataProducts {
     }
 
     @GET
+    @Path("test")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection test(){
+        Collection n = new Collection();
+        n.name = "test";
+        return n;
+    }
+
+    @POST
+    @Path("filecount")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFileCountInCollection(Collection collection) throws IOException {
+        return getFileCountOfCollection(collection.name) + " files are inside this collection.";
+    }
+
+    @GET
     @Path("summary")
     @Produces(MediaType.APPLICATION_JSON)
     public String getCollectionsAndFileSummary() throws IOException {
@@ -92,6 +110,7 @@ public class DataProducts {
             rs.next();
             int collectionCount = rs.getInt(1);
             rs.close();
+            st.close();
             return collectionCount;
         } catch (Exception e) {
             log.error("Cannot connect to database server", e);
@@ -132,6 +151,7 @@ public class DataProducts {
             rs.next();
             int collectionCount = rs.getInt(1);
             rs.close();
+            st.close();
             return collectionCount;
         } catch (Exception e) {
             log.error("Cannot connect to database server", e);
@@ -145,6 +165,54 @@ public class DataProducts {
 
         return 0;
     }
+
+    private int getFileCountOfCollection(String collectionGlobalId) throws IOException {
+            Connection conn = null;
+
+            String confFilePath = context.getRealPath("/WEB-INF/conf/dashboard-conf.properties");
+            Properties dashboardProps = new Properties();
+
+            try {
+                dashboardProps.load(new FileInputStream(new File(confFilePath)));
+            } catch (IOException e) {
+                log.error("Cannot create dashboard properties object!!", e);
+                throw e;
+            }
+
+            try {
+                String userName = (String) dashboardProps.get(Constants.PROP_DATACAT_DB_USER);
+                String password = (String) dashboardProps.get(Constants.PROP_DATACAT_DB_PW);
+                //String url = "jdbc:mysql://coffeetree.cs.indiana.edu:3306/datacat";
+                String url = (String) dashboardProps.get(Constants.PROP_DATACAT_DB_URL);
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                conn = DriverManager.getConnection(url, userName, password);
+
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery("SELECT `Collection_id` FROM `mcs_collection` WHERE `Global_id`='"+ collectionGlobalId + "'");
+                rs.next();
+                int collectionId = rs.getInt(1);
+                rs.close();
+                st.close();
+
+                st = conn.createStatement();
+                rs = st.executeQuery("SELECT COUNT(`Data_id`) FROM `mcs_logical_file` WHERE `Collection_id`=" + collectionId);
+                rs.next();
+                int fileCount = rs.getInt(1);
+                rs.close();
+                st.close();
+                return fileCount;
+            } catch (Exception e) {
+                log.error("Cannot connect to database server", e);
+            } finally {
+                if (conn != null) {
+                    try {
+                        conn.close();
+                    } catch (Exception e) { /* ignore close errors */ }
+                }
+            }
+
+            return 0;
+        }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

@@ -254,43 +254,25 @@ Dashboard.prototype.testVectorLayer = function() {
 Dashboard.prototype.addRadar = function(geoJSONObject, layers, len) {
 
     this.radarFeatures.push(geoJSONObject);
-    var reader = new OpenLayers.Format.GeoJSON({
-        'internalProjection': new OpenLayers.Projection("EPSG:900913"),
-        'externalProjection': new OpenLayers.Projection("EPSG:4326")
-    });
-
-//    function makeid() {
-//        var text = "";
-//        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-//
-//        for (var i = 0; i < 5; i++)
-//            text += possible.charAt(Math.floor(Math.random() * possible.length));
-//
-//        return text;
-//    }
-//
-//    var layerName = "radars-" + makeid();
-//
-//    var radarLayer = new OpenLayers.Layer.Vector(layerName, {
-//        styleMap: new OpenLayers.StyleMap({
-//            externalGraphic: "img/radar-2.png",
-//            graphicOpacity: 1.0,
-//            graphicWith: 16,
-//            graphicHeight: 26,
-//            graphicYOffset: -26
-//        })
-//    });
-
-    //layers.push(radarLayer);
-    //this.radarLayer.addFeatures(reader.read(geoJSONObject));
 
     function onSelectFeatureFunction(feature) {
         var b = feature.geometry.bounds;
         var centerPixel = this.map.getPixelFromLonLat(b.getCenterLonLat());
 
-        $("#radar-dialog-parent").html("<div id='dialog-radar' style='padding:5px;display: none;font-size: 11px;font-family: Verdana, sans-serif;' title='Data Catalog Dashboard'><p>" +
+        $("#radar-dialog-parent").html("<div id='dialog-radar' style='padding:5px;display: none;font-size: 11px;font-family: 'Gill Sans', Helvetica, Arial, sans-serif;' title='Data Catalog Dashboard'><h3>" +
             feature.data.Name +
-            "</p><div id='chart' style='width: 350px; height: 200px;'></div></div>");
+            "</h3><p id='file-count'></p></div>");
+        var rq = {"name": feature.data.Name};
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(rq),
+            url: "api/dataproducts/filecount",
+            success:function(data) {
+                $("#file-count").html(data);
+            },
+            contentType:"application/json; charset=utf-8"
+        });
+
         $("#dialog-radar").dialog({
             autoOpen: false,
             show: "blind",
@@ -303,20 +285,11 @@ Dashboard.prototype.addRadar = function(geoJSONObject, layers, len) {
         $("#dialog-radar").dialog("open");
     }
 
-//    var selectControl = new OpenLayers.Control.SelectFeature(radarLayer, {
-//        autoActivate: true,
-//        onSelect: onSelectFeatureFunction
-//    });
-
-    //this.map.addLayer(radarLayer);
-    //this.map.addControl(selectControl);
-    //selectControl.activate();
     if (len == this.radarFeatures.length) {
         var rlayer = this.map.getLayersByName("Radars");
         if (rlayer && rlayer.length > 0) {
             this.map.removeLayer(rlayer);
         }
-        alert(this.radarFeatures.length);
         for (var index in this.radarFeatures) {
             var reader = new OpenLayers.Format.GeoJSON({
                 'internalProjection': new OpenLayers.Projection("EPSG:900913"),
